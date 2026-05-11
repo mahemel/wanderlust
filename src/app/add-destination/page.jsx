@@ -9,10 +9,10 @@ import {
     TextArea,
     Button,
 } from "@heroui/react";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const AddDestinationPage = () => {
-    const [isPending, setIsPending] = useState(false);
+    const router = useRouter();
 
     const onSubmit = async (event) => {
         event.preventDefault();
@@ -30,8 +30,11 @@ const AddDestinationPage = () => {
 
         const data = await response.json();
 
+        console.log("Input: ", destinationData);
+        console.log("Response", data);
+
         if (data.insertedId) {
-            event.target.reset();
+            router.push(`/destinations/${data.insertedId}`);
         }
     };
 
@@ -180,10 +183,9 @@ const AddDestinationPage = () => {
                 <Button
                     type="submit"
                     variant="outline"
-                    isLoading={isPending}
                     className=" rounded-none w-full bg-cyan-500 text-white"
                 >
-                    {isPending ? "Adding Package..." : "Add Travel Package"}
+                    Add Travel Package
                 </Button>
             </form>
         </>
