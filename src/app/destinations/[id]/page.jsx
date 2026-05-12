@@ -1,3 +1,4 @@
+import BookingCard from "@/components/BookingCard";
 import DeleteDestination from "@/components/DeleteDestination";
 import UpdateDestination from "@/components/UpdateDestination";
 import Image from "next/image";
@@ -48,7 +49,6 @@ const DestinationDetail = async ({ params }) => {
 
                     <div className="flex justify-between">
                         <p>{destination.destinationName}</p>
-                        <p>${destination.price}/person</p>
                     </div>
 
                     <p className="flex items-center">
@@ -57,6 +57,7 @@ const DestinationDetail = async ({ params }) => {
 
                     <h2>Overview</h2>
                     <p>{destination.description}</p>
+                    <BookingCard destination={destination} />
                 </div>
             </div>
         </>
