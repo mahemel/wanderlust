@@ -16,6 +16,8 @@ const DestinationDetail = async ({ params }) => {
         headers: await headers(),
     });
 
+    console.log(process.env.NEXT_PUBLIC_SERVER_URL, "/destinations/", id);
+
     const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/destinations/${id}`,
         {
