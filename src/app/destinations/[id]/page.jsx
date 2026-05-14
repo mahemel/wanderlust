@@ -1,6 +1,8 @@
 import BookingCard from "@/components/BookingCard";
 import DeleteDestination from "@/components/DeleteDestination";
 import UpdateDestination from "@/components/UpdateDestination";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { FaRegCalendar } from "react-icons/fa";
@@ -10,7 +12,18 @@ import { PiMapPinLineBold } from "react-icons/pi";
 const DestinationDetail = async ({ params }) => {
     const { id } = await params;
 
-    const res = await fetch(`http://localhost:5001/all-destinations/${id}`);
+    const { token } = await auth.api.getToken({
+        headers: await headers(),
+    });
+
+    const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/destinations/${id}`,
+        {
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
+        },
+    );
     const destination = await res.json();
 
     return (

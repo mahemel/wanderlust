@@ -1,6 +1,7 @@
 import { Button, Card } from "@heroui/react";
 import Image from "next/image";
 import BookingDeleteAlert from "./BookingDeleteAlert";
+import Link from "next/link";
 
 const MyBookingCard = ({ booking }) => {
     const { _id, destinationName, price, imageUrl, country, departureDate } =
@@ -26,9 +27,7 @@ const MyBookingCard = ({ booking }) => {
             </div>
 
             <div className="space-y-3">
-                <h2 className="font-bold text-xl">
-                    {destinationName} : {_id}
-                </h2>
+                <h2 className="font-bold text-xl">{destinationName}</h2>
 
                 <p>Country: {country}</p>
 
@@ -40,7 +39,9 @@ const MyBookingCard = ({ booking }) => {
             <div className="flex items-end justify-end">
                 <div className="flex gap-3">
                     <BookingDeleteAlert id={_id} />
-                    <Button>View</Button>
+                    <Link href={`/destinations/${booking.destinationId}`}>
+                        <Button>View Details</Button>
+                    </Link>
                 </div>
             </div>
         </Card>

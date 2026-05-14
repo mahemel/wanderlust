@@ -1,6 +1,5 @@
 import MyBookingCard from "@/components/MyBookingCard";
 import { auth } from "@/lib/auth";
-import { Card } from "@heroui/react";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -13,8 +12,17 @@ const MyBookings = async () => {
         redirect("/destinations");
     }
 
+    const { token } = await auth.api.getToken({
+        headers: await headers(),
+    });
+
     const res = await fetch(
-        `http://localhost:5001/all-bookings/${session?.user.id}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/all-bookings/${session?.user.id}`,
+        {
+            headers: {
+                authorization: `Bearer ${token}`,
+            },
+        },
     );
     const bookings = await res.json();
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {
     Button,
     FieldError,
@@ -41,12 +42,15 @@ const UpdateDestination = ({ destination }) => {
         const formData = new FormData(event.target);
         const destinationData = Object.fromEntries(formData.entries());
 
+        const { data: tokenData } = await authClient.token();
+
         const response = await fetch(
-            `http://localhost:5001/all-destinations/${_id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/destinations/${_id}`,
             {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    authorization: `Bearer ${tokenData?.token}`,
                 },
                 body: JSON.stringify(destinationData),
             },
