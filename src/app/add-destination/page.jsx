@@ -37,9 +37,6 @@ const AddDestinationPage = () => {
 
         const data = await response.json();
 
-        console.log("Input: ", destinationData);
-        console.log("Response", data);
-
         if (data.insertedId) {
             router.push(`/destinations/${data.insertedId}`);
         }
